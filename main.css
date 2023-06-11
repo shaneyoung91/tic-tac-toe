@@ -1,0 +1,70 @@
+/* Tic-Tac-Toe Stylesheet */
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    height: 100vh;
+    margin: 0;
+    font-family: 'Orbitron', sans-serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: steelblue;
+}
+
+header {
+    font-size: 6vmin;
+    color: bisque;
+}
+
+h1 {
+    font-size: 3.9vmin;
+    color: bisque;
+    letter-spacing: 0.5vmin;
+}
+
+h2 {
+    font-size: 3vmin;
+}
+
+h3 {
+    font-size: 2.5vmin;
+    word-spacing: 1vmin;
+}
+
+#board {
+    display: grid;
+    grid-template-columns: repeat(3, 8vmin);
+    grid-template-rows: repeat(3, 8vmin);
+    margin-top: 3vmin;
+    gap: 5.5vmin;
+    justify-content: space-evenly;
+    justify-items: center;
+    align-content: space-evenly;
+    align-items: center;
+}
+
+#board>div {
+    height: 12vmin;
+    width: 12vmin;
+    border: 0.5vmin solid black;
+}
+
+button {
+    margin-top: 6vmin;
+    padding: 2vmin;
+    font-size: 2vmin;
+    font-weight: bold;
+    border-radius: 4vmin;
+    border: 0.2vmin solid black;
+    color: black;
+    background-color: bisque;
+}
+
+button:hover {
+    color: black;
+    background-color: white;
+}
