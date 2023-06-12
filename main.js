@@ -39,7 +39,6 @@ const resetGameBtn = document.querySelector('button');
 const square = document.getElementById('board')
 square.addEventListener('click', handleClick);
 resetGameBtn.addEventListener('click', init);
-squareEls = [...document.querySelectorAll('#board > div')];
 
 
 /*----- functions -----*/
