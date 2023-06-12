@@ -47,11 +47,12 @@ h3 {
     grid-template-columns: repeat(3, 8vmin);
     grid-template-rows: repeat(3, 8vmin);
     margin-top: 3vmin;
-    gap: 5.5vmin;
+    gap: 5vmin;
     justify-content: space-evenly;
     justify-items: center;
     align-content: space-evenly;
     align-items: center;
+    cursor: pointer;
 }
 
 #board>div {
@@ -68,10 +69,11 @@ button {
     border-radius: 4vmin;
     border: 0.2vmin solid black;
     color: black;
-    background-color: beige;
+    background-color: lightgrey;
+    cursor: pointer;
 }
 
 button:hover {
-    color: white;
-    background-color: grey;
+    color: black;
+    background-color: coral;
 }
