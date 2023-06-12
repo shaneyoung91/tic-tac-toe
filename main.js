@@ -5,17 +5,25 @@ const COLORS = {
 	'-1': 'green'  // Player O
 };
 
+// added variable players to represent string of Player X and O
+
 const PLAYERS = {
 	'1': 'Player X',
 	'-1': 'Player O'
 };
 
-// winning combinations (8 possible)
-//  - checkHorizontal (x3)
-//  - checkVertical (x3)
-//  - checkDiagonalNESW (x1)
-//  - checkDiagonalNWSE (x1)
+// winning combinations (8) should be presented for 2D array
 
+const winningCombos = [
+	[[0, 0], [0, 1], [0, 2]], // Row 1
+    [[1, 0], [1, 1], [1, 2]], // Row 2
+    [[2, 0], [2, 1], [2, 2]], // Row 3
+    [[0, 0], [1, 0], [2, 0]], // Col 1
+    [[0, 1], [1, 1], [2, 1]], // Col 2
+    [[0, 2], [1, 2], [2, 2]], // Col 3
+    [[0, 0], [1, 1], [2, 2]], // Diagonal from top-left
+    [[0, 2], [1, 1], [2, 0]]  // Diagonal from top-right
+];
 
 
 /*----- state (global/globally available) variables -----*/
@@ -26,16 +34,18 @@ let winner; // null = no winner; 1 or -1 = winner; "T" = tie game;
 /*----- cached (save/remember) elements  -----*/
 const messageElement = document.querySelector('h1');
 const resetGameBtn = document.querySelector('button');
-const squareEls = [...document.querySelectorAll('#board > div')];
 
 /*----- event listeners -----*/
-document.getElementById('board').addEventListener('click', handleClick);
+const square = document.getElementById('board')
+square.addEventListener('click', handleClick);
+resetGameBtn.addEventListener('click', init);
+squareEls = [...document.querySelectorAll('#board > div')];
 
 
 /*----- functions -----*/
-initialize();
+init();
 
-function initialize() {
+function init() {
 	board = [
 		[0, 0, 0],
 		[0, 0, 0],
@@ -53,16 +63,31 @@ function handleClick(evt) {
 	if (board[colIdx][rowIdx] === 0 && !winner) {
 		board[colIdx][rowIdx] = turn;
 		turn *= -1;
-		winner = getWinner(colIdx, rowIdx)
+		winner = getWinner()
 		render();
 	}
 };
+
+function getWinner() {
+	for (let combo of winningCombos) {
+		const turnPositions = combo.map(function(position) {
+			const rowIdx = position[0];
+			const colIdx = position[1];
+			return board[rowIdx][colIdx];
+		});
+		if (turnPositions[0] !== COLORS[0] && turnPositions.every(function(turnPosition) {
+		  return turnPosition === turnPositions[0];
+		})) {
+		return turnPositions[0];
+		}
+	}
+}
 
 
 function render() {
 	renderBoard();
 	renderMessage();
-	renderControls();
+	resetGameBtn.disabled = !winner;
 }
 
 function renderBoard() {
@@ -78,16 +103,12 @@ function renderBoard() {
 function renderMessage(){
 	if (winner === 'T') {
 		messageElement.innertext = "It's A Tie!";
-	} else if (winner) {
-		messageElement.innerHTML = `<span style="color: ${COLORS[winner]}">${PLAYERS[winner].toUpperCase()}</span> Wins!`;
+	} else if (winner === 1) {
+		messageElement.innerHTML = `<span style="color: ${COLORS[1]}">${PLAYERS[1].toUpperCase()}</span> Wins!`;
+	} else if (winner === -1) {
+		messageElement.innerHTML = `<span style="color: ${COLORS[-1]}">${PLAYERS[-1].toUpperCase()}</span> Wins!`;
 	} else {
 		messageElement.innerHTML = `<span style="color: ${COLORS[turn]}">${PLAYERS[turn].toUpperCase()}</span>'s Turn`;
 	}
-};
-
-function renderControls() {
-	// use ternary (conditional) expression when you want 1 of 2 values returned (truthy and falsy)
-	// <cond expression> ? <truthy exp> : <falsy exp>
-	resetGameBtn.style.visibility = winner ? 'visible' : 'hidden';
 };
 
