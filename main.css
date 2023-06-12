@@ -1,5 +1,3 @@
-/* Tic-Tac-Toe Stylesheet */
-
 * {
     box-sizing: border-box;
 }
@@ -12,27 +10,36 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: steelblue;
+    background-color: beige;
 }
 
 header {
     font-size: 6vmin;
-    color: bisque;
+    color: black;
 }
 
 h1 {
-    font-size: 3.9vmin;
-    color: bisque;
+    font-size: 4vmin;
+    color: black;
     letter-spacing: 0.5vmin;
+    margin: 4vmin;
 }
 
 h2 {
-    font-size: 3vmin;
+    font-size: 3.5vmin;
+    margin: 5vmin;
 }
 
 h3 {
     font-size: 2.5vmin;
     word-spacing: 1vmin;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    letter-spacing: 0.2vmin;
+    font-weight: bold;
+    margin: 0;
 }
 
 #board {
@@ -61,10 +68,10 @@ button {
     border-radius: 4vmin;
     border: 0.2vmin solid black;
     color: black;
-    background-color: bisque;
+    background-color: beige;
 }
 
 button:hover {
-    color: black;
-    background-color: white;
+    color: white;
+    background-color: grey;
 }
