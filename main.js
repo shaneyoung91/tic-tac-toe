@@ -31,9 +31,11 @@ let board; // 2D array, 3x3 grid
 let turn; // represented by 1 or -1
 let winner; // null = no winner; 1 or -1 = winner; "T" = tie game;
 
+
 /*----- cached (save/remember) elements  -----*/
 const messageElement = document.querySelector('h1');
 const resetGameBtn = document.querySelector('button');
+
 
 /*----- event listeners -----*/
 const square = document.getElementById('board')
@@ -68,18 +70,32 @@ function handleClick(evt) {
 };
 
 function getWinner() {
+	// For of loop iterates through combos & creates a new array with map().
+	// The combos are assigned a "position" based on location on the game board(rowIdx, colIdx).
+	// UPDATED variable name to something more understandable....
+	// "playerPositions" represents player 1/-1 and 0 for empty square on the board for each combo.
 	for (let combo of winningCombos) {
-		const turnPositions = combo.map(function(position) {
+		const playerPositions = combo.map(function(position) {
 			const rowIdx = position[0];
 			const colIdx = position[1];
 			return board[rowIdx][colIdx];
 		});
-		if (turnPositions[0] !== COLORS[0] && turnPositions.every(function(turnPosition) {
-		  return turnPosition === turnPositions[0];
+		// Checks if player 1/-1 positions on the board are the same AND not empty.
+		// Also checks the direction (row, column, diagonal). If both conditions are true, then player 1/-1 has won,
+		// and returns winner
+		if (playerPositions[0] !== 0 && playerPositions.every(function(playerPosition) {
+		  return playerPosition === playerPositions[0];
 		})) {
-		return turnPositions[0];
+		return playerPositions[0];
 		}
 	}
+
+
+	// We can add Tie variable. If the board is full, return tie
+	// if (){
+	// 	return 'T';
+	// // };
+	// return 0;
 }
 
 
@@ -95,6 +111,16 @@ function renderBoard() {
 			const cellId = `c${colIdx}r${rowIdx}`;
 			const cellEl = document.getElementById(cellId)
 			cellEl.style.backgroundColor = COLORS[cellVal];
+
+			// Turn square colors intos symbols - X or O
+			// Need to refine in CSS before implementing
+			// const boardSymbol = board[colIdx][rowIdx];
+			// if (boardSymbol === 1)
+			// 	cellEl.innerText = "X";
+			// else if (boardSymbol === -1)
+			// 	cellEl.innerText = "O";
+			// else
+			// 	cellEl.innerText = "";
 		});
 	});
 };
@@ -110,4 +136,3 @@ function renderMessage(){
 		messageElement.innerHTML = `<span style="color: ${COLORS[turn]}">${PLAYERS[turn].toUpperCase()}</span>'s Turn`;
 	}
 };
-
